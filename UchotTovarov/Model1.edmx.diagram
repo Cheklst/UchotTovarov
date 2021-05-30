@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="753badd2706741bebe0815037ccfa09e" Name="Diagram1">
+        <EntityTypeShape EntityType="UchetTovarovModel.Computers" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="UchetTovarovModel.Employee" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="UchetTovarovModel.Goods" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UchetTovarovModel.Role" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="UchetTovarovModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="UchetTovarovModel.FK_Computers_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="UchetTovarovModel.FK_Employee_Role" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="UchetTovarovModel.CheckList" Width="1.5" PointX="5.25" PointY="5.125" />
+        <EntityTypeShape EntityType="UchetTovarovModel.Supplies" Width="1.5" PointX="5.25" PointY="8" />
+        <EntityTypeShape EntityType="UchetTovarovModel.Type" Width="1.5" PointX="0.75" PointY="8.125" />
+        <AssociationConnector Association="UchetTovarovModel.FK_CheckList_Employee" />
+        <AssociationConnector Association="UchetTovarovModel.FK_Supplies_Employee" />
+        <AssociationConnector Association="UchetTovarovModel.FK_Goods_Type" />
+        <EntityTypeShape EntityType="UchetTovarovModel.CheckGoods" Width="1.5" PointX="7.5" PointY="5.125" />
+        <EntityTypeShape EntityType="UchetTovarovModel.SuppliesGoods" Width="1.5" PointX="7.5" PointY="8.5" />
+        <AssociationConnector Association="UchetTovarovModel.FK_CheckGoods_CheckList" />
+        <AssociationConnector Association="UchetTovarovModel.FK_CheckGoods_Goods" />
+        <AssociationConnector Association="UchetTovarovModel.FK_SuppliesGoods_Goods" />
+        <AssociationConnector Association="UchetTovarovModel.FK_SuppliesGoods_Supplies" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

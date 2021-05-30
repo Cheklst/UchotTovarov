@@ -1,0 +1,648 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище UchetTovarovModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CheckGoods">
+          <Key>
+            <PropertyRef Name="idCG" />
+          </Key>
+          <Property Name="idCG" Type="int" Nullable="false" />
+          <Property Name="idCheckList" Type="int" />
+          <Property Name="idGoods" Type="int" />
+        </EntityType>
+        <EntityType Name="CheckList">
+          <Key>
+            <PropertyRef Name="IdCheckList" />
+          </Key>
+          <Property Name="IdCheckList" Type="int" Nullable="false" />
+          <Property Name="IdEmployee" Type="int" />
+          <Property Name="Date" Type="date" />
+          <Property Name="idGoods" Type="int" />
+          <Property Name="amount" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Computers">
+          <Key>
+            <PropertyRef Name="idComputer" />
+          </Key>
+          <Property Name="idComputer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idEmployee" Type="int" />
+          <Property Name="Place" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="idEmployee" />
+          </Key>
+          <Property Name="idEmployee" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Number" Type="nvarchar" MaxLength="11" />
+          <Property Name="idRole" Type="int" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Goods">
+          <Key>
+            <PropertyRef Name="IdGoods" />
+          </Key>
+          <Property Name="IdGoods" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Amount" Type="int" />
+          <Property Name="Price" Type="money" />
+          <Property Name="IdType" Type="int" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="idRole" />
+          </Key>
+          <Property Name="idRole" Type="int" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Supplies">
+          <Key>
+            <PropertyRef Name="idSuppliy" />
+          </Key>
+          <Property Name="idSuppliy" Type="int" Nullable="false" />
+          <Property Name="idEmployee" Type="int" />
+          <Property Name="idGoods" Type="int" />
+          <Property Name="amount" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SuppliesGoods">
+          <Key>
+            <PropertyRef Name="idSG" />
+          </Key>
+          <Property Name="idSG" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idSupplies" Type="int" />
+          <Property Name="idGoods" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="IdType" />
+          </Key>
+          <Property Name="IdType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_CheckGoods_CheckList">
+          <End Role="CheckList" Type="Self.CheckList" Multiplicity="0..1" />
+          <End Role="CheckGoods" Type="Self.CheckGoods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CheckList">
+              <PropertyRef Name="IdCheckList" />
+            </Principal>
+            <Dependent Role="CheckGoods">
+              <PropertyRef Name="idCheckList" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CheckGoods_Goods">
+          <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
+          <End Role="CheckGoods" Type="Self.CheckGoods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Goods">
+              <PropertyRef Name="IdGoods" />
+            </Principal>
+            <Dependent Role="CheckGoods">
+              <PropertyRef Name="idGoods" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CheckList_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="CheckList" Type="Self.CheckList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="idEmployee" />
+            </Principal>
+            <Dependent Role="CheckList">
+              <PropertyRef Name="IdEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Computers_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Computers" Type="Self.Computers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="idEmployee" />
+            </Principal>
+            <Dependent Role="Computers">
+              <PropertyRef Name="idEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="idRole" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="idRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Goods_Type">
+          <End Role="Type" Type="Self.Type" Multiplicity="0..1" />
+          <End Role="Goods" Type="Self.Goods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="IdType" />
+            </Principal>
+            <Dependent Role="Goods">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplies_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Supplies" Type="Self.Supplies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="idEmployee" />
+            </Principal>
+            <Dependent Role="Supplies">
+              <PropertyRef Name="idEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SuppliesGoods_Goods">
+          <End Role="Goods" Type="Self.Goods" Multiplicity="0..1" />
+          <End Role="SuppliesGoods" Type="Self.SuppliesGoods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Goods">
+              <PropertyRef Name="IdGoods" />
+            </Principal>
+            <Dependent Role="SuppliesGoods">
+              <PropertyRef Name="idGoods" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SuppliesGoods_Supplies">
+          <End Role="Supplies" Type="Self.Supplies" Multiplicity="0..1" />
+          <End Role="SuppliesGoods" Type="Self.SuppliesGoods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplies">
+              <PropertyRef Name="idSuppliy" />
+            </Principal>
+            <Dependent Role="SuppliesGoods">
+              <PropertyRef Name="idSupplies" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище UchetTovarovModelContainer">
+          <EntitySet Name="CheckGoods" EntityType="Self.CheckGoods" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CheckList" EntityType="Self.CheckList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Computers" EntityType="Self.Computers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Goods" EntityType="Self.Goods" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplies" EntityType="Self.Supplies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SuppliesGoods" EntityType="Self.SuppliesGoods" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CheckGoods_CheckList" Association="Self.FK_CheckGoods_CheckList">
+            <End Role="CheckList" EntitySet="CheckList" />
+            <End Role="CheckGoods" EntitySet="CheckGoods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CheckGoods_Goods" Association="Self.FK_CheckGoods_Goods">
+            <End Role="Goods" EntitySet="Goods" />
+            <End Role="CheckGoods" EntitySet="CheckGoods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CheckList_Employee" Association="Self.FK_CheckList_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="CheckList" EntitySet="CheckList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Computers_Employee" Association="Self.FK_Computers_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Computers" EntitySet="Computers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Role" Association="Self.FK_Employee_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Goods_Type" Association="Self.FK_Goods_Type">
+            <End Role="Type" EntitySet="Type" />
+            <End Role="Goods" EntitySet="Goods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplies_Employee" Association="Self.FK_Supplies_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Supplies" EntitySet="Supplies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SuppliesGoods_Goods" Association="Self.FK_SuppliesGoods_Goods">
+            <End Role="Goods" EntitySet="Goods" />
+            <End Role="SuppliesGoods" EntitySet="SuppliesGoods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SuppliesGoods_Supplies" Association="Self.FK_SuppliesGoods_Supplies">
+            <End Role="Supplies" EntitySet="Supplies" />
+            <End Role="SuppliesGoods" EntitySet="SuppliesGoods" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UchetTovarovModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Computers">
+          <Key>
+            <PropertyRef Name="idComputer" />
+          </Key>
+          <Property Name="idComputer" Type="Int32" Nullable="false" />
+          <Property Name="idEmployee" Type="Int32" />
+          <Property Name="Place" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Computers_Employee" FromRole="Computers" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="idEmployee" />
+          </Key>
+          <Property Name="idEmployee" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="idRole" Type="Int32" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Computers" Relationship="Self.FK_Computers_Employee" FromRole="Employee" ToRole="Computers" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_Employee_Role" FromRole="Employee" ToRole="Role" />
+          <NavigationProperty Name="CheckList" Relationship="UchetTovarovModel.FK_CheckList_Employee" FromRole="Employee" ToRole="CheckList" />
+          <NavigationProperty Name="Supplies" Relationship="UchetTovarovModel.FK_Supplies_Employee" FromRole="Employee" ToRole="Supplies" />
+        </EntityType>
+        <EntityType Name="Goods">
+          <Key>
+            <PropertyRef Name="IdGoods" />
+          </Key>
+          <Property Name="IdGoods" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Amount" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IdType" Type="Int32" />
+          <NavigationProperty Name="Type" Relationship="UchetTovarovModel.FK_Goods_Type" FromRole="Goods" ToRole="Type" />
+          <NavigationProperty Name="CheckGoods" Relationship="UchetTovarovModel.FK_CheckGoods_Goods" FromRole="Goods" ToRole="CheckGoods" />
+          <NavigationProperty Name="SuppliesGoods" Relationship="UchetTovarovModel.FK_SuppliesGoods_Goods" FromRole="Goods" ToRole="SuppliesGoods" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="idRole" />
+          </Key>
+          <Property Name="idRole" Type="Int32" Nullable="false" />
+          <Property Name="Role1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Role" FromRole="Role" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Computers_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Computers" Type="Self.Computers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="idEmployee" />
+            </Principal>
+            <Dependent Role="Computers">
+              <PropertyRef Name="idEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="idRole" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="idRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Computers" EntityType="Self.Computers" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" />
+          <EntitySet Name="Goods" EntityType="Self.Goods" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_Computers_Employee" Association="Self.FK_Computers_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Computers" EntitySet="Computers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Role" Association="Self.FK_Employee_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <EntitySet Name="CheckList" EntityType="UchetTovarovModel.CheckList" />
+          <EntitySet Name="Supplies" EntityType="UchetTovarovModel.Supplies" />
+          <EntitySet Name="Type" EntityType="UchetTovarovModel.Type" />
+          <AssociationSet Name="FK_CheckList_Employee" Association="UchetTovarovModel.FK_CheckList_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="CheckList" EntitySet="CheckList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplies_Employee" Association="UchetTovarovModel.FK_Supplies_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Supplies" EntitySet="Supplies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Goods_Type" Association="UchetTovarovModel.FK_Goods_Type">
+            <End Role="Type" EntitySet="Type" />
+            <End Role="Goods" EntitySet="Goods" />
+          </AssociationSet>
+          <EntitySet Name="CheckGoods" EntityType="UchetTovarovModel.CheckGoods" />
+          <EntitySet Name="SuppliesGoods" EntityType="UchetTovarovModel.SuppliesGoods" />
+          <AssociationSet Name="FK_CheckGoods_CheckList" Association="UchetTovarovModel.FK_CheckGoods_CheckList">
+            <End Role="CheckList" EntitySet="CheckList" />
+            <End Role="CheckGoods" EntitySet="CheckGoods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CheckGoods_Goods" Association="UchetTovarovModel.FK_CheckGoods_Goods">
+            <End Role="Goods" EntitySet="Goods" />
+            <End Role="CheckGoods" EntitySet="CheckGoods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SuppliesGoods_Goods" Association="UchetTovarovModel.FK_SuppliesGoods_Goods">
+            <End Role="Goods" EntitySet="Goods" />
+            <End Role="SuppliesGoods" EntitySet="SuppliesGoods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SuppliesGoods_Supplies" Association="UchetTovarovModel.FK_SuppliesGoods_Supplies">
+            <End Role="Supplies" EntitySet="Supplies" />
+            <End Role="SuppliesGoods" EntitySet="SuppliesGoods" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CheckList">
+          <Key>
+            <PropertyRef Name="IdCheckList" />
+          </Key>
+          <Property Name="IdCheckList" Type="Int32" Nullable="false" />
+          <Property Name="IdEmployee" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="idGoods" Type="Int32" />
+          <Property Name="amount" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Employee" Relationship="UchetTovarovModel.FK_CheckList_Employee" FromRole="CheckList" ToRole="Employee" />
+          <NavigationProperty Name="CheckGoods" Relationship="UchetTovarovModel.FK_CheckGoods_CheckList" FromRole="CheckList" ToRole="CheckGoods" />
+        </EntityType>
+        <EntityType Name="Supplies">
+          <Key>
+            <PropertyRef Name="idSuppliy" />
+          </Key>
+          <Property Name="idSuppliy" Type="Int32" Nullable="false" />
+          <Property Name="idEmployee" Type="Int32" />
+          <Property Name="idGoods" Type="Int32" />
+          <Property Name="amount" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Employee" Relationship="UchetTovarovModel.FK_Supplies_Employee" FromRole="Supplies" ToRole="Employee" />
+          <NavigationProperty Name="SuppliesGoods" Relationship="UchetTovarovModel.FK_SuppliesGoods_Supplies" FromRole="Supplies" ToRole="SuppliesGoods" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="IdType" />
+          </Key>
+          <Property Name="IdType" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Goods" Relationship="UchetTovarovModel.FK_Goods_Type" FromRole="Type" ToRole="Goods" />
+        </EntityType>
+        <Association Name="FK_CheckList_Employee">
+          <End Type="UchetTovarovModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="UchetTovarovModel.CheckList" Role="CheckList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="idEmployee" />
+            </Principal>
+            <Dependent Role="CheckList">
+              <PropertyRef Name="IdEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplies_Employee">
+          <End Type="UchetTovarovModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="UchetTovarovModel.Supplies" Role="Supplies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="idEmployee" />
+            </Principal>
+            <Dependent Role="Supplies">
+              <PropertyRef Name="idEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Goods_Type">
+          <End Type="UchetTovarovModel.Type" Role="Type" Multiplicity="0..1" />
+          <End Type="UchetTovarovModel.Goods" Role="Goods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="IdType" />
+            </Principal>
+            <Dependent Role="Goods">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CheckGoods">
+          <Key>
+            <PropertyRef Name="idCG" />
+          </Key>
+          <Property Name="idCG" Type="Int32" Nullable="false" />
+          <Property Name="idCheckList" Type="Int32" />
+          <Property Name="idGoods" Type="Int32" />
+          <NavigationProperty Name="CheckList" Relationship="UchetTovarovModel.FK_CheckGoods_CheckList" FromRole="CheckGoods" ToRole="CheckList" />
+          <NavigationProperty Name="Goods" Relationship="UchetTovarovModel.FK_CheckGoods_Goods" FromRole="CheckGoods" ToRole="Goods" />
+        </EntityType>
+        <EntityType Name="SuppliesGoods">
+          <Key>
+            <PropertyRef Name="idSG" />
+          </Key>
+          <Property Name="idSG" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idSupplies" Type="Int32" />
+          <Property Name="idGoods" Type="Int32" />
+          <NavigationProperty Name="Goods" Relationship="UchetTovarovModel.FK_SuppliesGoods_Goods" FromRole="SuppliesGoods" ToRole="Goods" />
+          <NavigationProperty Name="Supplies" Relationship="UchetTovarovModel.FK_SuppliesGoods_Supplies" FromRole="SuppliesGoods" ToRole="Supplies" />
+        </EntityType>
+        <Association Name="FK_CheckGoods_CheckList">
+          <End Type="UchetTovarovModel.CheckList" Role="CheckList" Multiplicity="0..1" />
+          <End Type="UchetTovarovModel.CheckGoods" Role="CheckGoods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CheckList">
+              <PropertyRef Name="IdCheckList" />
+            </Principal>
+            <Dependent Role="CheckGoods">
+              <PropertyRef Name="idCheckList" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CheckGoods_Goods">
+          <End Type="UchetTovarovModel.Goods" Role="Goods" Multiplicity="0..1" />
+          <End Type="UchetTovarovModel.CheckGoods" Role="CheckGoods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Goods">
+              <PropertyRef Name="IdGoods" />
+            </Principal>
+            <Dependent Role="CheckGoods">
+              <PropertyRef Name="idGoods" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SuppliesGoods_Goods">
+          <End Type="UchetTovarovModel.Goods" Role="Goods" Multiplicity="0..1" />
+          <End Type="UchetTovarovModel.SuppliesGoods" Role="SuppliesGoods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Goods">
+              <PropertyRef Name="IdGoods" />
+            </Principal>
+            <Dependent Role="SuppliesGoods">
+              <PropertyRef Name="idGoods" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SuppliesGoods_Supplies">
+          <End Type="UchetTovarovModel.Supplies" Role="Supplies" Multiplicity="0..1" />
+          <End Type="UchetTovarovModel.SuppliesGoods" Role="SuppliesGoods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplies">
+              <PropertyRef Name="idSuppliy" />
+            </Principal>
+            <Dependent Role="SuppliesGoods">
+              <PropertyRef Name="idSupplies" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище UchetTovarovModelContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Computers">
+            <EntityTypeMapping TypeName="UchetTovarovModel.Computers">
+              <MappingFragment StoreEntitySet="Computers">
+                <ScalarProperty Name="idComputer" ColumnName="idComputer" />
+                <ScalarProperty Name="idEmployee" ColumnName="idEmployee" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="UchetTovarovModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="idEmployee" ColumnName="idEmployee" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="idRole" ColumnName="idRole" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Goods">
+            <EntityTypeMapping TypeName="UchetTovarovModel.Goods">
+              <MappingFragment StoreEntitySet="Goods">
+                <ScalarProperty Name="IdType" ColumnName="IdType" />
+                <ScalarProperty Name="IdGoods" ColumnName="IdGoods" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="UchetTovarovModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="idRole" ColumnName="idRole" />
+                <ScalarProperty Name="Role1" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="UchetTovarovModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CheckList">
+            <EntityTypeMapping TypeName="UchetTovarovModel.CheckList">
+              <MappingFragment StoreEntitySet="CheckList">
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="idGoods" ColumnName="idGoods" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="IdEmployee" ColumnName="IdEmployee" />
+                <ScalarProperty Name="IdCheckList" ColumnName="IdCheckList" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supplies">
+            <EntityTypeMapping TypeName="UchetTovarovModel.Supplies">
+              <MappingFragment StoreEntitySet="Supplies">
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="idGoods" ColumnName="idGoods" />
+                <ScalarProperty Name="idEmployee" ColumnName="idEmployee" />
+                <ScalarProperty Name="idSuppliy" ColumnName="idSuppliy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Type">
+            <EntityTypeMapping TypeName="UchetTovarovModel.Type">
+              <MappingFragment StoreEntitySet="Type">
+                <ScalarProperty Name="Type1" ColumnName="Type" />
+                <ScalarProperty Name="IdType" ColumnName="IdType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CheckGoods">
+            <EntityTypeMapping TypeName="UchetTovarovModel.CheckGoods">
+              <MappingFragment StoreEntitySet="CheckGoods">
+                <ScalarProperty Name="idGoods" ColumnName="idGoods" />
+                <ScalarProperty Name="idCheckList" ColumnName="idCheckList" />
+                <ScalarProperty Name="idCG" ColumnName="idCG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SuppliesGoods">
+            <EntityTypeMapping TypeName="UchetTovarovModel.SuppliesGoods">
+              <MappingFragment StoreEntitySet="SuppliesGoods">
+                <ScalarProperty Name="idGoods" ColumnName="idGoods" />
+                <ScalarProperty Name="idSupplies" ColumnName="idSupplies" />
+                <ScalarProperty Name="idSG" ColumnName="idSG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
