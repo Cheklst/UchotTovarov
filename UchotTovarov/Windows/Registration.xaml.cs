@@ -63,5 +63,6 @@ namespace UchotTovarov
                 MessageBox.Show("Что-то пошло не так: "+ ex, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
     }
 }

@@ -24,7 +24,14 @@
                               Offset="1"/>
             </RadialGradientBrush>
         </Grid.Background>
-        <DataGrid x:Name="dg" Grid.Row="1" AutoGenerateColumns="False" Grid.Column="1" Margin="0,0,10,0" >
+        <DataGrid x:Name="dg" Grid.Row="1" AutoGenerateColumns="False" Grid.Column="1" Margin="0,0,10,0" IsReadOnly="True"  
+                          Width="auto"
+                          RowEditEnding="SaveGoods"
+                          AddingNewItem="IsAddEdit"
+                          RowDetailsVisibilityMode="VisibleWhenSelected"
+                          SelectionMode="Single"
+                          SelectionUnit="FullRow" 
+                          PreviewKeyDown="PreviewKey">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="name" Header="Наименование" Binding="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn x:Name="amount" Header="Количество" Binding="{Binding Path=Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>

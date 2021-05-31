@@ -17,6 +17,7 @@ namespace UchotTovarov.Windows
     public partial class WorkSpace : Window
     {
         Entities entities = new Entities();
+        int isAddEdit = 0;
         public WorkSpace()
         {
             InitializeComponent();
@@ -54,7 +55,11 @@ namespace UchotTovarov.Windows
             {
                 lArea.Content = computers.Place;
                 lArea.Foreground = Brushes.Aquamarine;
-                btnSpecial.Content = "Просмотр транзакций";
+                btnSpecial.Content = "Рабочие";
+                btnSpecial.Visibility = Visibility.Collapsed;//Доработать
+                dg.IsReadOnly = false;
+                dg.CanUserAddRows = true;
+                dg.CanUserDeleteRows = true;
             }
             List<Goods> goods = entities.Goods.ToList();
             List<string> types = entities.Type.Select(i => i.Type1).ToList();
@@ -118,16 +123,92 @@ namespace UchotTovarov.Windows
             if (u.idRole == 1)//Кассир
             {
                 Check check = new Check();
-                check.ShowDialog();
+                check.Show();
+                this.Close();
             }
             else if (u.idRole == 2)//Кладовщик
             {
-
+                Supplies supplies = new Supplies();
+                supplies.Show();
+                this.Close();
             }
             else if (u.idRole == 3)//Админ
             {
-
+                //List<Employee> employee = entities.Employee.ToList();
+                //List<Goods> goods = entities.Goods.ToList();
+                //dg.ItemsSource = null;
+                //dg.ItemsSource = employee;
             }
+        }
+
+        private void SaveGoods(object sender, DataGridRowEditEndingEventArgs e)
+        {
+            var dg = sender as DataGrid;
+            if (dg != null)
+            {
+                var dgr = (DataGridRow)(dg.ItemContainerGenerator.ContainerFromIndex(dg.SelectedIndex));
+                if (isAddEdit == 0)
+                {
+                    if (entities.SaveChanges() == 0)
+                    {
+                        MessageBox.Show("Ошибка", "Ошибка записи", MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+                        return;
+                    }
+                }
+                else
+                {
+                    var num_id = e.Row.Item as Goods;
+                    entities.Goods.Add(new Goods
+                    {
+                        Name = num_id.Name,
+                        Amount = num_id.Amount,
+                        Price = num_id.Price,
+                        IdType = num_id.IdType,
+                    });
+
+                    if (entities.SaveChanges() == 0)
+                    {
+                        MessageBox.Show("Ошибка", "Ошибка записи", MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+                        isAddEdit = 0;
+                        return;
+                    }
+
+                    isAddEdit = 0;
+
+                }
+            }
+        }
+
+        private void PreviewKey(object sender, KeyEventArgs e)
+        {
+            DataGrid dg = sender as DataGrid;
+            if (dg != null)
+            {
+                DataGridRow dgr = (DataGridRow)(dg.ItemContainerGenerator.ContainerFromIndex(dg.SelectedIndex));
+                if (e.Key == Key.Delete && !dgr.IsEditing)
+                {
+                    var res = dg.SelectedItem as Goods;
+                    var ree = MessageBox.Show("Подтверждение удаления",
+                        string.Format("Запись \n{0}\n{1}\n будет удалена.", res.Name),
+                        MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (!(e.Handled = (ree == MessageBoxResult.No)))
+                    {
+                        if (entities.Goods.Remove(entities.Goods.FirstOrDefault(i => i.IdGoods == res.IdGoods)) != null)
+                        {
+                            entities.SaveChanges();
+                        }
+                        else
+                            MessageBox.Show("Ошибка", "Ошибка удаления!", MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+                    }
+                }
+            }
+        }
+        private void IsAddEdit(object sender, AddingNewItemEventArgs e)
+        {
+            isAddEdit = 1;
         }
     }
 }

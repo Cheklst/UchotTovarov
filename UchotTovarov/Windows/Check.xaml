@@ -21,11 +21,11 @@
             </RadialGradientBrush>
         </Grid.Background>
         <Label  Content="Создание чека" Foreground="White" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" FontStyle="Italic" FontWeight="Bold"/>
-        <Label x:Name="lName" Content="Наименование" Grid.Row="1" Foreground="White" Margin="30,20,200,240" HorizontalContentAlignment="Center" FontSize="20" VerticalContentAlignment="Bottom" Visibility="Hidden"/>
-        <ComboBox x:Name="cbNameGoods" Grid.Row="1" Margin="30,90,200,190" Visibility="Hidden"/>
+        <Label x:Name="lName" Content="Наименование" Grid.Row="1" Foreground="White" Margin="30,20,200,240" HorizontalContentAlignment="Center" FontSize="22" VerticalContentAlignment="Bottom" Visibility="Hidden"/>
+        <ComboBox x:Name="cbNameGoods" Grid.Row="1" Margin="30,90,200,190" Visibility="Hidden"  FontSize="22" VerticalContentAlignment="Center"/>
         <Label x:Name="lAmount" Grid.Row="1" Margin="30,135,200,140" Foreground="White" HorizontalContentAlignment="Center" FontSize="20" VerticalContentAlignment="Bottom" Content="Количество" Visibility="Hidden"/>
-        <TextBox x:Name="tbAmount" Grid.Row="1" Margin="30,190,200,90" FontSize="18" Visibility="Hidden"/>
-        <Button x:Name="btnAdd" Content="Добавить" Foreground="White" Background="Green" Grid.Row="1" Margin="30,270,200,10" FontSize="20" Click="btnAdd_Click" Visibility="Hidden"/>
+        <TextBox x:Name="tbAmount" Grid.Row="1" Margin="30,190,200,90" FontSize="22" Visibility="Hidden"  HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+        <Button x:Name="btnAdd" Content="Добавить" Foreground="White" Background="Green" Grid.Row="1" Margin="30,270,200,10" FontSize="22" Click="btnAdd_Click" VerticalContentAlignment="Center"  Visibility="Hidden"/>
         <DataGrid x:Name="dgCheck" Grid.Row="1" Margin="10,10,170,10" AutoGenerateColumns="False" >
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="name" Header="Наименование" Binding="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
@@ -34,7 +34,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button  x:Name="btnAddGoods" Grid.Row="1"  FontSize="28" Content="+" Foreground="White" Background="Green" Margin="450,20,10,250" Click="btnAddGoods_Click"/>
-        <Button  x:Name="btnMinusGoods" Grid.Row="1"  FontSize="28" Content="-" Foreground="White" Background="Red" Margin="450,90,10,180"/>
+        <Button  x:Name="btnMinusGoods" Grid.Row="1"  FontSize="28" Content="-" Foreground="White" Background="Red" Margin="450,90,10,180" Click="btnMinusGoods_Click"/>
         <Label x:Name="lPrice1" Content="Цена:" Grid.Row="1" Margin="450,150,10,130"  FontStyle="Italic" FontWeight="Bold" Foreground="White" FontSize="25" HorizontalContentAlignment="Center"/>
         <Label x:Name="lPrice2" Content="Цена" Grid.Row="1" Margin="450,200,10,0" Foreground="White" FontSize="20" HorizontalContentAlignment="Center"/>
         <Button x:Name="btnExit" Content="Отмена" Grid.Row="2" FontSize="28" Foreground="White" Background="Red" Margin="310,10,10,10" Click="btnExit_Click"/>

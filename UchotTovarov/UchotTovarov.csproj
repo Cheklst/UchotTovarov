@@ -82,6 +82,9 @@
     <Compile Include="Windows\Check.xaml.cs">
       <DependentUpon>Check.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Supplies.xaml.cs">
+      <DependentUpon>Supplies.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\WorkSpace.xaml.cs">
       <DependentUpon>WorkSpace.xaml</DependentUpon>
     </Compile>
@@ -131,6 +134,10 @@
     <Compile Include="Windows\Registration.xaml.cs">
       <DependentUpon>Registration.xaml</DependentUpon>
     </Compile>
+    <Page Include="Windows\Supplies.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\WorkSpace.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
