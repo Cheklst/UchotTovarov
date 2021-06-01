@@ -9,5 +9,7 @@ namespace UchotTovarov
     class AppData
     {
         public static int idEmployee;
+
+        public static int idGoods;
     }
 }

@@ -79,6 +79,9 @@
     <Compile Include="Type.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Windows\ChangeGoods.xaml.cs">
+      <DependentUpon>ChangeGoods.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Check.xaml.cs">
       <DependentUpon>Check.xaml</DependentUpon>
     </Compile>
@@ -88,6 +91,10 @@
     <Compile Include="Windows\WorkSpace.xaml.cs">
       <DependentUpon>WorkSpace.xaml</DependentUpon>
     </Compile>
+    <Page Include="Windows\ChangeGoods.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\Check.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

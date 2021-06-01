@@ -26,7 +26,11 @@
         <Label x:Name="lAmount" Grid.Row="1" Margin="30,135,200,140" Foreground="White" HorizontalContentAlignment="Center" FontSize="20" VerticalContentAlignment="Bottom" Content="Количество" Visibility="Hidden"/>
         <TextBox x:Name="tbAmount" Grid.Row="1" Margin="30,190,200,90" FontSize="22" Visibility="Hidden"  HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
         <Button x:Name="btnAdd" Content="Добавить" Foreground="White" Background="Green" Grid.Row="1" Margin="30,270,200,10" FontSize="22" Click="btnAdd_Click" VerticalContentAlignment="Center"  Visibility="Hidden"/>
-        <DataGrid x:Name="dgCheck" Grid.Row="1" Margin="10,10,170,10" AutoGenerateColumns="False" >
+        <DataGrid x:Name="dgCheck" Grid.Row="1" Margin="10,10,170,10" AutoGenerateColumns="False"  
+                          HorizontalGridLinesBrush="Gray"
+                          RowBackground="LightGray"
+                          AlternatingRowBackground="White"
+                          Padding="0,0,2,3" BorderBrush="#747474" BorderThickness="1,1,2,3">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="name" Header="Наименование" Binding="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn x:Name="amount" Header="Количество" Binding="{Binding Path=Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
