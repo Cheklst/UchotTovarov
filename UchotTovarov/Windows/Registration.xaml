@@ -35,7 +35,6 @@
                FontStyle="Italic" 
                Foreground="LightGray" />
         <TextBox Grid.Row="2"
-                 Text="Misha"
                  Margin="30,50,30,20" 
                  Name="tbLogin" 
                  FontSize="20" 
@@ -49,7 +48,6 @@
                FontStyle="Italic" 
                Foreground="LightGray"/>
         <TextBox Grid.Row="3" 
-                 Text="Misha"
                  Margin="30,50,30,20" 
                  Name="tbPassword" 
                  FontSize="20" 

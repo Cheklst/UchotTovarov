@@ -126,7 +126,7 @@ namespace UchotTovarov.Windows
                 List<Goods> goods = new List<Goods>();
                 goods = entities.Goods.ToList();
                 Goods good = goods.First(i => i.Name == tbName.Text);
-                entities.Goods.Remove(goods.First(i => i.IdGoods == AppData.idGoods-));
+                entities.Goods.Remove(goods.First(i => i.IdGoods == AppData.idGoods));
 
                 entities.SaveChanges();
                 MessageBox.Show("Товар успешно удален!");

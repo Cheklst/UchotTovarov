@@ -108,50 +108,56 @@ namespace UchotTovarov.Windows
                     int AddPrice = Convert.ToInt32(tbPrice.Text);
                     int AddType = Convert.ToInt32(cbType.SelectedIndex) + 1;
 
-                    Goods one = entities.Goods.Where(i => i.Name == AddName).FirstOrDefault();
-
-                    if (one == null)
+                    if (AddAmount > 0 && AddPrice > 0)
                     {
-                        Goods goods = new Goods
+                        Goods one = entities.Goods.Where(i => i.Name == AddName).FirstOrDefault();
+
+                        if (one == null)
                         {
-                            Name = AddName,
-                            Amount = AddAmount,
-                            Price = AddPrice,
-                            IdType = AddType
-                        };
-                        entities.Goods.Add(goods);
-                        entities.SaveChanges();
+                            Goods goods = new Goods
+                            {
+                                Name = AddName,
+                                Amount = AddAmount,
+                                Price = AddPrice,
+                                IdType = AddType
+                            };
+                            entities.Goods.Add(goods);
+                            entities.SaveChanges();
 
-                        MessageBox.Show("Товар успешно добавлен!");
+                            MessageBox.Show("Товар успешно добавлен!");
 
-                        tbName2.Text = "";
-                        tbAmount2.Text = "";
-                        tbPrice.Text = "";
-                        cbType.SelectedIndex = -1;
+                            tbName2.Text = "";
+                            tbAmount2.Text = "";
+                            tbPrice.Text = "";
+                            cbType.SelectedIndex = -1;
 
-                        lName.Visibility = Visibility.Visible;
-                        cbName.Visibility = Visibility.Visible;
-                        lAmount.Visibility = Visibility.Visible;
-                        tbAmount.Visibility = Visibility.Visible;
-                        btnEnter.Visibility = Visibility.Visible;
-                        btnAddNew.Visibility = Visibility.Visible;
+                            lName.Visibility = Visibility.Visible;
+                            cbName.Visibility = Visibility.Visible;
+                            lAmount.Visibility = Visibility.Visible;
+                            tbAmount.Visibility = Visibility.Visible;
+                            btnEnter.Visibility = Visibility.Visible;
+                            btnAddNew.Visibility = Visibility.Visible;
 
-                        lName2.Visibility = Visibility.Hidden;
-                        lAmount2.Visibility = Visibility.Hidden;
-                        lPrice.Visibility = Visibility.Hidden;
-                        lType.Visibility = Visibility.Hidden;
+                            lName2.Visibility = Visibility.Hidden;
+                            lAmount2.Visibility = Visibility.Hidden;
+                            lPrice.Visibility = Visibility.Hidden;
+                            lType.Visibility = Visibility.Hidden;
 
-                        tbName2.Visibility = Visibility.Hidden;
-                        tbAmount2.Visibility = Visibility.Hidden;
-                        tbPrice.Visibility = Visibility.Hidden;
-                        cbType.Visibility = Visibility.Hidden;
-                        BtnAdd.Visibility = Visibility.Hidden;
+                            tbName2.Visibility = Visibility.Hidden;
+                            tbAmount2.Visibility = Visibility.Hidden;
+                            tbPrice.Visibility = Visibility.Hidden;
+                            cbType.Visibility = Visibility.Hidden;
+                            BtnAdd.Visibility = Visibility.Hidden;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Такой товар уже есть!");
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Такой товар уже есть!");
+                        MessageBox.Show("Количество и цена должны быть положительными!");
                     }
-                   
                 }
                 catch (Exception)
                 {

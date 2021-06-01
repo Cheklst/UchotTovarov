@@ -92,7 +92,7 @@ namespace UchotTovarov.Windows
             lPrice2.Visibility = Visibility.Visible;
             btnEnter.Visibility = Visibility.Visible;
 
-            if (cbNameGoods.SelectedIndex != -1 || tbAmount.Text != "")
+            if (cbNameGoods.SelectedIndex != -1 && tbAmount.Text != "")
             {
                 string nameGood = cbNameGoods.SelectedItem.ToString();
                 try
@@ -101,23 +101,31 @@ namespace UchotTovarov.Windows
 
                     Goods one = entities.Goods.Where(i => i.Name == nameGood).FirstOrDefault();
 
-                    if (amount <= one.Amount && one.Amount != 0)
+                    if (amount > 0)
                     {
-                        Good good = new Good
+                        if (amount <= one.Amount && one.Amount != 0)
                         {
-                            Name = nameGood,
-                            Amount = amount,
-                            Price = Convert.ToDecimal(one.Price),
-                        };
+                            Good good = new Good
+                            {
+                                Name = nameGood,
+                                Amount = amount,
+                                Price = Convert.ToDecimal(one.Price),
+                            };
 
-                        Tovars.Add(good);
-                        PriceSum();
-                        dgCheck.Items.Add(good);
+                            Tovars.Add(good);
+                            PriceSum();
+                            dgCheck.Items.Add(good);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Столько товара нет на складе!");
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Столько товара нет на складе!");
+                        MessageBox.Show("Введите положительное количество товара!");
                     }
+                    
                 }
                 catch (Exception)
                 {
